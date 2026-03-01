@@ -104,4 +104,7 @@ class CarController extends ProductController {
     carService.deleteCarById(carId);
     return "redirect:listCar";
   }
+
+  // buat class baru agar tidak error ketika testing karena NoSuchBeanDefinitionException dan controller tidak bisa saling extends
+// pindahkan ke file baru mengikuti single responsibility principle
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -14,6 +15,7 @@ public class CarServiceImpl implements CarService {
 
   @Override
   public Car create(Car car) {
+    car.setCarId(UUID.randomUUID().toString());
     carRepository.create(car);
     return car;
   }
