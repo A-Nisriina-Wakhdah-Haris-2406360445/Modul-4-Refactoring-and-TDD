@@ -1,10 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.controller;
-import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.model.Product;
-import id.ac.ui.cs.advprog.eshop.service.CarServiceImpl;
-import id.ac.ui.cs.advprog.eshop.service.ProductService;
+import id.ac.ui.cs.advprog.eshop.service.ProductServiceCRUD;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import id.ac.ui.cs.advprog.eshop.service.ProductServiceRead;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +12,14 @@ import java.util.List;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
-  @Autowired
-  private ProductService service;
+
+  private final ProductServiceCRUD serviceCRUD;
+  private final ProductServiceRead serviceRead;
+
+  public ProductController(ProductServiceCRUD serviceCRUD, ProductServiceRead serviceRead) {
+    this.serviceCRUD = serviceCRUD;
+    this.serviceRead = serviceRead;
+  }
 
   @GetMapping("/create")
   public String createProductPage(Model model){
@@ -26,13 +30,13 @@ public class ProductController {
 
   @PostMapping("/create")
   public String createProductPost(@ModelAttribute Product product, Model model){
-      service.create(product);
+      serviceCRUD.create(product);
       return "redirect:list";
   }
 
   @GetMapping("/list")
   public String productListPage(Model model){
-      List<Product> allProducts = service.findAll();
+      List<Product> allProducts = serviceRead.findAll();
       model.addAttribute("products", allProducts);
       return "ProductList";
   }
@@ -40,21 +44,21 @@ public class ProductController {
   // edit product
   @GetMapping("/edit/{id}")
   public String editProductPage(@PathVariable String id, Model model){
-      Product product = service.findById(id);
+      Product product = serviceRead.findById(id);
       model.addAttribute("product", product);
       return "editProduct";
   }
 
   @PostMapping("/edit")
   public String editProductPost(@ModelAttribute Product product){
-      service.update(product);
+      serviceCRUD.update(product);
       return "redirect:/product/list";
   }
 
   // delete
   @GetMapping("/delete/{id}")
   public String deleteProduct(@PathVariable String id){
-      service.deleteById(id);
+      serviceCRUD.deleteById(id);
       return "redirect:/product/list";
   }
 }

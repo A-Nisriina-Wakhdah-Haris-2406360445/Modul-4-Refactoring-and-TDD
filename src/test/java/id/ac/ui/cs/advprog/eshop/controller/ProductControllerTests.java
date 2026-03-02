@@ -3,10 +3,10 @@ package id.ac.ui.cs.advprog.eshop.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import id.ac.ui.cs.advprog.eshop.service.ProductServiceCRUD;
+import id.ac.ui.cs.advprog.eshop.service.ProductServiceRead;
 import org.junit.jupiter.api.Test;
 import id.ac.ui.cs.advprog.eshop.model.Product;
-import id.ac.ui.cs.advprog.eshop.repository.ProductRepository;
-import id.ac.ui.cs.advprog.eshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -24,10 +24,10 @@ class ProductControllerTests {
   private MockMvc mockMVC;
 
   @MockBean
-  private ProductService service;
+  private ProductServiceRead serviceRead;
 
   @MockBean
-  private ProductRepository productRepository;
+  private ProductServiceCRUD serviceCRUD;
 
   @Test
   void testCreateProductPage() throws Exception {
@@ -52,7 +52,7 @@ class ProductControllerTests {
     List<Product> productList = new ArrayList<>();
     productList.add(new Product());
 
-    when(service.findAll()).thenReturn(productList);
+    when(serviceRead.findAll()).thenReturn(productList);
 
     mockMVC.perform(get("/product/list"))
         .andExpect(status().isOk())
@@ -65,7 +65,7 @@ class ProductControllerTests {
     Product product = new Product();
     product.setProductId("100");
 
-    when(service.findById("100")).thenReturn(product);
+    when(serviceRead.findById("100")).thenReturn(product);
 
     mockMVC.perform(get("/product/edit/100"))
         .andExpect(status().isOk())

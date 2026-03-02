@@ -3,6 +3,6 @@ import id.ac.ui.cs.advprog.eshop.model.Car;
 import java.util.List;
 
 public interface CarServiceRead {
-  public List<Car> findAll();
+  List<Car> findAll();
   Car findById(String carId);
 }
