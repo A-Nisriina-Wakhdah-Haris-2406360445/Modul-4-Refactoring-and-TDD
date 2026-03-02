@@ -1,9 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
 import id.ac.ui.cs.advprog.eshop.model.Car;
-import id.ac.ui.cs.advprog.eshop.model.Product;
-import org.checkerframework.checker.units.qual.C;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +11,7 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CarRepositoryTest {
+public class CarRepositoryImplTest {
 
   @InjectMocks
   CarRepository carRepository;
