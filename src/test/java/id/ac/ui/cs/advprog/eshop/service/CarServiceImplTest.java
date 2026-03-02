@@ -1,6 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
 import id.ac.ui.cs.advprog.eshop.model.Car;
+import id.ac.ui.cs.advprog.eshop.repository.CarCRUD;
+import id.ac.ui.cs.advprog.eshop.repository.CarReadOnly;
 import id.ac.ui.cs.advprog.eshop.repository.CarRepository;
 import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
@@ -20,7 +22,10 @@ import static org.mockito.Mockito.*;
 class CarServiceImplTest {
 
   @Mock
-  CarRepository carRepository;
+  CarReadOnly carReadOnly;
+
+  @Mock
+  CarCRUD carCRUD;
 
   @InjectMocks
   CarServiceImpl carService;
@@ -37,6 +42,18 @@ class CarServiceImplTest {
   }
 
   @Test
+  void testCreateWithId() {
+    Car car = new Car();
+    car.setCarQuantity(4);
+    car.setCarColor("Red");
+    car.setCarName("Ferrari");
+    car.setCarId("001-110");
+
+    Car createdCar = carService.create(car);
+    assertEquals("001-110", createdCar.getCarId());
+  }
+
+  @Test
   void testFindAll() {
     Car car = new Car();
     car.setCarName("Toyota");
@@ -49,7 +66,7 @@ class CarServiceImplTest {
     car2.setCarQuantity(2);
 
     Iterator<Car> iterator = Arrays.asList(car, car2).iterator();
-    when(carRepository.findAll()).thenReturn((iterator));
+    when(carReadOnly.findAll()).thenReturn((iterator));
 
     List<Car> result = carService.findAll();
     assertEquals(2, result.size());
@@ -62,7 +79,7 @@ class CarServiceImplTest {
     car.setCarColor("Silver");
     car.setCarQuantity(12);
 
-    when(carRepository.findById(car.getCarId())).thenReturn(car);
+    when(carReadOnly.findById(car.getCarId())).thenReturn(car);
 
     Car result = carService.findById(car.getCarId());
     assertEquals(car, result);
@@ -76,12 +93,12 @@ class CarServiceImplTest {
     car.setCarQuantity(5);
 
     carService.update(car.getCarId(), car);
-    verify(carRepository, times(1)).update(car.getCarId(), car);
+    verify(carCRUD, times(1)).update(car.getCarId(), car);
   }
 
   @Test
   void testDeleteById() {
     carService.deleteCarById("110");
-    verify(carRepository, times(1)).delete("110");
+    verify(carCRUD, times(1)).delete("110");
   }
 }
