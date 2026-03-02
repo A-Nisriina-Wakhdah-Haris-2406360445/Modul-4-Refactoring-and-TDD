@@ -153,5 +153,8 @@ kode pengujian sesuai dengan behavior yang akan diuuji, dengan begitu kode menja
         - Meningkatkan risiko tight coupling, ex: class ShowCarCatalog yang mengimplentasikan class CarRepository (sebelum SOLID) harus menuliskan method delete() dan update() padahal class tersebut hanya untuk menampilkan daftar mobil yang ada.<br>
     **e. Dependency Inversion Principle<br>**
         - Jika tidak menerapkan DIP, maka akan terjadi tight coupling antara CarController dan CarServiceImpl karena high-level module bergantung langsung pada low-level modul dan apabila 
-        terdapat perubahan pada implementasi service, maka controller juga akan ikut diubah, ex: private CarServiceImpl carService;.  
+        terdapat perubahan pada implementasi service, maka controller juga akan ikut diubah, ex: private CarServiceImpl carService;.
+
+
+testing coverage
 </details>
