@@ -3,7 +3,6 @@ package id.ac.ui.cs.advprog.eshop.controller;
 import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.service.CarServiceCRUD;
 import id.ac.ui.cs.advprog.eshop.service.CarServiceRead;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +12,14 @@ import java.util.List;
 @Controller
 @RequestMapping("/car")
 public class CarController {
-  @Autowired
-  private CarServiceRead carServiceRead;
 
-  @Autowired
-  private CarServiceCRUD carServiceCRUD;
+  private final CarServiceRead carServiceRead;
+  private final CarServiceCRUD carServiceCRUD;
+
+  public CarController(CarServiceRead carServiceRead, CarServiceCRUD carServiceCRUD) {
+    this.carServiceRead = carServiceRead;
+    this.carServiceCRUD = carServiceCRUD;
+  }
 
   @GetMapping("/createCar")
   public String createCarPage(Model model) {
@@ -36,7 +38,7 @@ public class CarController {
   public String carListPage(Model model) {
     List<Car> allCars = carServiceRead.findAll();
     model.addAttribute("cars", allCars);
-    return "carList";
+    return "listCar";
   }
 
   @GetMapping("/editCar/{carId}")
@@ -53,7 +55,7 @@ public class CarController {
     return "redirect:listCar";
   }
 
-  @PostMapping
+  @PostMapping("/deleteCar")
   public String deleteCar(@RequestParam("carId") String carId) {
     carServiceCRUD.deleteCarById(carId);
     return "redirect:listCar";

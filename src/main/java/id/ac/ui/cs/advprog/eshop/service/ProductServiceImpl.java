@@ -1,8 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
 import id.ac.ui.cs.advprog.eshop.model.Product;
-import id.ac.ui.cs.advprog.eshop.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import id.ac.ui.cs.advprog.eshop.repository.ProductCRUD;
+import id.ac.ui.cs.advprog.eshop.repository.ProductReadOnly;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,24 +11,26 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductServiceCRUD, ProductServiceRead {
 
-    private final ProductRepository productRepository;
+    private final ProductCRUD productCRUD;
+    private final ProductReadOnly productRead;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-      }
+    public ProductServiceImpl(ProductCRUD productCRUD, ProductReadOnly productRead) {
+        this.productCRUD = productCRUD;
+        this.productRead = productRead;
+    }
 
     @Override
     public Product create(Product product){
         product.setProductId(UUID.randomUUID().toString());
-        productRepository.create(product);
+        productCRUD.create(product);
         return product;
     }
 
     @Override
     public List<Product> findAll(){
-        Iterator<Product> productIterator = productRepository.findAll();
+        Iterator<Product> productIterator = productRead.findAll();
         List<Product> allProduct = new ArrayList<>();
         productIterator.forEachRemaining(allProduct::add);
         return allProduct;
@@ -36,17 +38,17 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product findById(String id){
-        return productRepository.findById(id);
+        return productRead.findById(id);
     }
 
     @Override
     public void update(Product product){
-        productRepository.update(product);
+        productCRUD.update(product);
     }
 
     @Override
     public void deleteById(String id){
-        productRepository.deleteById(id);
+        productCRUD.deleteById(id);
     }
 
 }

@@ -8,18 +8,21 @@ import java.util.Iterator;
 import java.util.List;
 
 @Repository
-public class ProductRepository{
+public class ProductRepository implements ProductCRUD, ProductReadOnly {
     private List<Product> productData = new ArrayList<>();
 
+    @Override
     public Product create(Product product){
         productData.add(product);
         return product;
     }
 
+    @Override
     public Iterator<Product> findAll(){
         return productData.iterator();
     }
 
+    @Override
     public Product findById(String id){
         for(Product product : productData){
             if(product.getProductId().equals(id)){
@@ -29,7 +32,7 @@ public class ProductRepository{
         return null;
     }
 
-    // edit
+    @Override
     public void update(Product product){
         for(int i = 0; i < productData.size(); i++){
             if(productData.get(i).getProductId().equals(product.getProductId())){
@@ -39,7 +42,7 @@ public class ProductRepository{
         }
     }
 
-    // delete
+    @Override
     public void deleteById(String id){
         productData.removeIf(product -> product.getProductId().equals(id));
     }

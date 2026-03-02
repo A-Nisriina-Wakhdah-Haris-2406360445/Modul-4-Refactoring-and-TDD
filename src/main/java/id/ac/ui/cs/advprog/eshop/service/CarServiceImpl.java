@@ -2,7 +2,6 @@ package id.ac.ui.cs.advprog.eshop.service;
 import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.repository.CarCRUD;
 import id.ac.ui.cs.advprog.eshop.repository.CarReadOnly;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,11 +10,14 @@ import java.util.UUID;
 
 @Service
 public class CarServiceImpl implements CarServiceRead, CarServiceCRUD {
-  @Autowired
-  private CarCRUD carCRUD;
 
-  @Autowired
-  private CarReadOnly carRead;
+  private final CarCRUD carCRUD;
+  private final CarReadOnly carRead;
+
+  public CarServiceImpl(CarCRUD carCRUD, CarReadOnly carRead) {
+    this.carCRUD = carCRUD;
+    this.carRead = carRead;
+  }
 
   @Override
   public Car create(Car car) {
@@ -36,8 +38,7 @@ public class CarServiceImpl implements CarServiceRead, CarServiceCRUD {
 
   @Override
   public Car findById(String carId) {
-    Car car = carRead.findById(carId);
-    return car;
+    return carRead.findById(carId);
   }
 
   @Override
