@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
+import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,27 @@ class ProductServiceImplTest {
     Product product = new Product();
     product.setProductQuantity(12);
     product.setProductName("Nasi goreng");
+
+    Product createdProduct = productService.create(product);
+    assertNotNull(createdProduct.getProductId());
+  }
+
+  @Test
+  void testCreateWithoutId() {
+    Product product = new Product();
+    product.setProductQuantity(12);
+    product.setProductName("Nasi goreng");
+
+    Product createdProduct = productService.create(product);
+    assertNotNull(createdProduct.getProductId());
+  }
+
+  @Test
+  void testCreateWithId() {
+    Product product = new Product();
+    product.setProductQuantity(12);
+    product.setProductName("Nasi goreng");
+    product.setProductId("000-009");
 
     Product createdProduct = productService.create(product);
     assertNotNull(createdProduct.getProductId());

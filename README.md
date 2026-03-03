@@ -106,55 +106,79 @@ kode pengujian sesuai dengan behavior yang akan diuuji, dengan begitu kode menja
 1. Berikut ini merupakan SOLID principle yang saya gunakan, yaitu:<br>
     **a. Single Responsibility Principle:** Prinsip ini mengatakan bahwa setiap class memiliki satu tanggung jawab utama, contoh penerapannya adalah:<br>
         1. Memisahkan CarController menjadi class indpenden tanpa extends ProductController karena melanggar SRP pada level desain yang disebabkan oleh penggunaan inheritance yang tidak tepat<br>
-        2. Memindahkan pembuatan UUID pada CarRepository ke CarService agar repository hanya berfokus pada penyimpanan data<br>
+        2. Memindahkan pembuatan UUID pada repository product dan car ke service product dan car agar repository hanya berfokus pada penyimpanan data<br>
         3. Membuat interface Read dan CRUD untuk repository dan service agar setiap interface bisa fokus pada tanggung jawabnya masing-masing.<br>
     <br>
     **b. Open-Closed Principle:** Mengatakan bahwa Software entities (classes, module, function) harus terbuka terhadap ekstensi, namun tertutup untuk modifikasi, sehingga
         penambahan fitur baru tidak mengharuskan perubahan pada kode yang sudah stabil. Contoh penerapannya adalah:<br>
-        1. Membuat interface CarRepository agar dapat membuat berbagai cara penyimpanan hanya dengan membuat class baru yang mengimplementasikan interface tersebut<br>
-        2. Service bergantung pada interface CarRepository agar CarServiceImpl tidak perlu berubah jika implementasi repository ada yang diubah<br>
-   **c. Liskov Substitution Principle:** Mengatakan bahwa objek subclass harus dapat menggantikan objek induknya tanpa mengubah perilaku yang ada. Contoh penerapannya adalah
+        1. Membuat interface CRUD dan Read agar dapat membuat berbagai cara penyimpanan hanya dengan membuat class baru yang mengimplementasikan interface tersebut<br>
+        2. Service bergantung pada interface CRUD dan ReadOnly agar product dan car ServiceImpl tidak perlu berubah jika implementasi repository ada yang diubah<br>
+    <br>
+   **c. Liskov Substitution Principle:** Mengatakan bahwa objek subclass harus dapat menggantikan objek induknya tanpa mengubah perilaku yang ada. Contoh penerapannya adalah:<br>
         Membuat CarController menjadi class utuh yang berdiri sendiri tanpa meng-extend sebuah class karena CarController bukan tipe khusus dari ProductController sehingga apabila terdapat method pada superclass yang berubah atau memiliki behaviour 
-        tertentu, maka CarController bisa mewarisi sesuatu yang tidak relevan tersebut.<br>
+        tertentu, maka CarController bisa mewarisi sesuatu yang tidak relevan tersebut. Selain itu, kedua endpoint controller tersebut berbeda sehingga tidak bisa di-extend<br>
+    <br>
    **d. Interface Segregation Priciple:** Mengatakan bahwa sebuah class tidak boleh dipaksa untuk mengimplementasikan method yang tidak dibutuhkannya. Oleh karena itu, pembuatan interface harus dirancang secara spesifik agar class 
         tidak perlu mengimplementasikan method yang tidak digunakan. Contoh penerapannya adalah membuat interface Read dan CRUD yang kecil dan memiliki tugas spesifik pada repository dan service<br>
-   **e. Dependency Inversion Principle:** Mengatakan bahwa sebuah class sebaiknya bergantung pada interface atau abstract class daripada bergantung pada concrete class 
-        1. Mengubah private CarServiceImpl carService; pada CarController menjadi private  private CarService carService agar sesuai dengan prinsip DIP.<br>
-        2. Membuat interface bernama CarRepository agar CarServiceImpl bergantung pada interface<br>
-        3. Mengubah private CarRepositoryImpl carRepository; menjadi private CarRepository carRepository pada CarServiceImpl<br>
+  <br>
+   **e. Dependency Inversion Principle:** Mengatakan bahwa sebuah class sebaiknya bergantung pada interface atau abstract class daripada bergantung pada concrete class. Contoh penerapannya adalah:<br>
+        1. Menggunakan interface CRUD dan Read pada controller milik car dan product agar tidak bergantung pada concrete class service<br>
+        2. Membuat interface CRUD dan ReadOnly agar CarServiceImpl bergantung pada interface, bukan concrete class repository<br>
 <br><br>
 2. Berikut ini adalah keutungan dalam mengimplementasikan SOLID principle, yaitu:<br>
     **a. Single Responsibility Principle<br>**
         - Memisahkan logika controller untuk Car dan Product agar setiap controller milik kedua model tersebut tidak bercampur dan tidak saling bergantung satu sama lain, dan setiap controller memiliki tanggung jawab sendiri-sendiri<br>
         - Memisahkan tanggung jawab setiap interface agar dapat fokus pada tugas utamanya<br>
+        - Contoh: Memindahkan pembuatan UUID pada CarRepository ke Carservice dan membuat class baru bernama CarController<br>
+    <br>
     **b. Open-Closed Principle<br>**
-        - Meminimalisir munculnya bug baru pada kode yang sudah stabil, ex: Jika terdapat perubahan pada CarRepository, CarServiceImpl tidak perlu diubah juga<br>
-        - Memudahkan unit testing, ex: Ketika mengetes CarServiceImpl, tidak perlu mengetes interface yang berhubungan dengannya (CarRepository)<br>
+        - Meminimalisir munculnya bug baru pada kode yang sudah stabil,<br>
+        - Memudahkan unit testing<br>
+        - Contoh: Jika terdapat perubahan pada CarRepository, CarServiceImpl tidak perlu diubah karena ada CRUD dan ReadOnly<br>
+    <br>
     **c. Liskov Substitution Principle<br>**
         - Tidak ada pewarisan method yang tidak relevan, testing lebih aman, dan perilaku setiap controller lebih konsisten dan sesuai dengan tugasnya.<br>
+        - Contoh: Memisahkan CarController dan ProductController dengan menjadikan CarController sebagai class yang berdiri sendiri tanpa meng-extend suatu class<br>
+    <br>
     **d. Interface Segregation Principle<br>**
         - Meningkatkakan fleksibilitas dalam implementasi<br>
-        - Class yang mengimplementasikannya tidak perlu menuliskan metode yang tidak digunakan, ex: class ShowCarCatalog yang bertugas untuk menampilkan daftar mobil
+        - Class yang mengimplementasikannya tidak perlu menuliskan metode yang tidak digunakan<br>
+        - Contoh: Apabila ingin membuat class ShowCarCatalog yang bertugas untuk menampilkan daftar mobil
         cukup menggunakan CarRead dan tidak perlu menuliskan method delete() dan update()<br>
+    <br>
     **e. Dependency Inversion Principle**<br>
-        - Mengurangi ketergantungan kuat CarController karena ia tidak lagi terikat pada implementasi spesifik, sehingga apabila terdapat perubahan pada CarServiceImpl maka controller tidak perlu diubah, mempermudah unit testing, meningkatkan maintainability
-          karena perubahan pada implementasi service tidak memengaruhi controller<br>
+        - Mengurangi ketergantungan kuat antar class<br>
+        - Meningkatkan fleksibiliitas sistem<br>
+        - Contoh: Membuat interface CRUD dan ReadOnly agar class service tidak bergantung pada concrete class repository<br>
+    <br>
 <br>
 3. Berikut ini merupakan kerugian jika tidak mengimplementasikan SOLID principle, yaitu:<br>
-    **a. Single Responsibility Principle<br>**
-        - Kerugian: <br>
-    **b. Open-Closed Principle<br>**
-        - Jika ada perubahan pada concrete class, maka class yang meng-extend juga harus ikut diubah, ex: Jika mengubah CarRepositoryImpl, maka isi CarServiceImpl juga dipaksa untuk diubah<br>
-        - Terdapat keterikatan kuat antar class, ex: Jika terdapat perubahan pada CarRepositoryImpl, maka CarServiceImpl juga akan terkena dampaknya<br>
-    **c. Liskov Substitution Principle<br>**
-        - Menciptakan inheritance yang tidak valid dan membingungkan, perubahan pada ProductController dapat merusak CarController, dan sulit untuk dikembangkan. Contoh: ProductController memiliki method bernama editProductPage(), maka CarController otomatis
+    **a. Single Responsibility Principle**<br>
+        - Class menjadi terlalu kompleks karena memiliki lebih dari satu tanggung jawab<br>
+        - Perubahan pada suatu kebutuhan dapat merusak bagian lain yang tidak berkaitan<br>
+        - Contoh: Apabila repository milik Car dan Product menyimpan data, membuat UUID, dan menjalankan logika bisnis,
+            maka jika terdapat perubahan mengenai cara membuat UUID, repository juga harus diubah<br>
+    <br>
+    **b. Open-Closed Principle**<br>
+        - Jika ada perubahan pada concrete class, maka class yang bergantung juga harus ikut diubah<br>
+        - Terdapat keterikatan kuat antar class<br>
+        - Contoh: Jika car dan product ServiceImpl langsung menggunakan Repository dan ingin mengganti cara penyimpanan menggunakan database, maka ServiceImpl juga harus diubah<br>
+    <br>
+    **c. Liskov Substitution Principle**<br>
+        - Menciptakan inheritance yang tidak valid dan membingungkan<br>
+        - Perubahan pada superclass bisa merusak subclass<br>
+        - Subclass bisa memiliki behaviour yang tidak sesuai dengan fungsinya karena mewarisi method dari superclass<br>
+        - Contoh: Perubahan pada ProductController dapat merusak CarController, dan sulit untuk dikembangkan, karena ProductController memiliki method bernama editProductPage(), maka CarController otomatis
           akan mewarisi menthod tersebut padahal CarController hanya bertugas untuk mengurus Car saja, bukan Product.<br>
-    **d. Interface Segregation Principle<br>**
-        - Meningkatkan risiko tight coupling, ex: class ShowCarCatalog yang mengimplentasikan class CarRepository (sebelum SOLID) harus menuliskan method delete() dan update() padahal class tersebut hanya untuk menampilkan daftar mobil yang ada.<br>
-    **e. Dependency Inversion Principle<br>**
-        - Jika tidak menerapkan DIP, maka akan terjadi tight coupling antara CarController dan CarServiceImpl karena high-level module bergantung langsung pada low-level modul dan apabila 
-        terdapat perubahan pada implementasi service, maka controller juga akan ikut diubah, ex: private CarServiceImpl carService;.
-
-
-testing coverage
+    <br>
+    **d. Interface Segregation Principle**<br>
+        - Meningkatkan risiko tight coupling<br>
+        - Class dipaksa untuk mengimplementasikan method yang tidak digunakan<br> 
+        - Contoh: Jika kita hanya membuat satu interface CarRepository dengan method CRUD dan finds, maka apabila kita ingin membuat class baru yang berfungsi hanya menampilkan daftar mobil (ex: ShowCarCatalog),
+         maka kelas tersebut tetap harus mengimplementasikan CRUD walaupun tidak digunakan<br>
+    <br>
+    **e. Dependency Inversion Principle**<br>
+        - Terjadi tight coupling antara high-level module dan low-level module<br>
+        - Perubahan pada implementasi concrete class memengaruhi subclass<br>
+        - Contoh: Pada CarControler menggunakan implementasi concrete class CarServiceImpl dan inheritance antara CarController dengan ProductController
 </details>
