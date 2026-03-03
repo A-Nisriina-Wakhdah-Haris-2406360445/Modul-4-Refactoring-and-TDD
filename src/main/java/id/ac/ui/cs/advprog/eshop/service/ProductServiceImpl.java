@@ -23,7 +23,9 @@ public class ProductServiceImpl implements ProductServiceCRUD, ProductServiceRea
 
     @Override
     public Product create(Product product){
-        product.setProductId(UUID.randomUUID().toString());
+        if (product.getProductId() == null) {
+            product.setProductId(UUID.randomUUID().toString());
+        }
         productCRUD.create(product);
         return product;
     }
