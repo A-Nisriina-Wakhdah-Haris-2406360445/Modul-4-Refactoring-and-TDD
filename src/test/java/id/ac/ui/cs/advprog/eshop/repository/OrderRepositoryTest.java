@@ -89,7 +89,7 @@ public class OrderRepositoryTest {
       orderRepository.save(order);
     }
 
-    Order findResult = orderRepository.finById("zczc");
+    Order findResult = orderRepository.findById("zczc");
     assertNull(findResult);
   }
 
