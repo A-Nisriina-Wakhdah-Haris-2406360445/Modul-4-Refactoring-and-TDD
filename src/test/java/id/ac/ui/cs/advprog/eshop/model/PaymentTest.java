@@ -1,6 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
 import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.repository.OrderRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -90,6 +91,27 @@ public class PaymentTest {
     Payment payment2 = new Payment(order, "VOUCHER_CODE", new HashMap<>());
 
     assertNotEquals(payment1.getId(), payment2.getId());
+  }
+
+  @Test
+  void testSetOrderInvalidMethod() {
+    Map<String, String> paymentData = new HashMap<>();
+    paymentData.put("voucherCode", "ESHOP1234ABC5678");
+
+    assertThrows(IllegalArgumentException.class, () ->{
+      Payment payment = new Payment(orders.get(1), PaymentMethod.VOUCHER_CODE.getValue(), paymentData);
+      payment.setMethod("BUZZ");
+    });
+  }
+
+  @Test
+  void testSetPaymentMethodToCOD() {
+    Map<String, String> paymentData = new HashMap<>();
+    paymentData.put("voucherCode", "ESHOP1234ABC5678");
+    Payment payment = new Payment(orders.get(1), PaymentMethod.COD.getValue(),paymentData);
+    payment.setStatus(PaymentStatus.SUCCESS.getValue());
+    assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
+    assertEquals(PaymentMethod.COD.getValue(), payment.getMethod());
   }
 
   @Test
