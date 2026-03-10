@@ -30,12 +30,4 @@ public class Payment {
       throw new IllegalArgumentException();
     }
   }
-
-  public void setStatus(String status) {
-    if (PaymentStatus.contains(status)) {
-      this.status = status;
-    } else {
-      throw new IllegalArgumentException();
-    }
-  }
 }

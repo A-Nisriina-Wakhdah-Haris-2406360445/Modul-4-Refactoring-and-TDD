@@ -112,7 +112,7 @@ public class PaymentServiceImplTest {
 
     Payment payment = paymentService.addPayment(order, PaymentMethod.VOUCHER_CODE.getValue(),
         paymentData);
-    assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus())
+    assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
   }
 
   @Test
@@ -152,7 +152,7 @@ public class PaymentServiceImplTest {
     Map<String, Payment> payments = new HashMap<>();
     when(paymentRepository.findAll()).thenReturn(payments);
 
-    Map<String, Payment> result = paymentService.getAllPayments();
+    Payment result = paymentService.getAllPayments();
 
     assertEquals(payments, result);
   }
