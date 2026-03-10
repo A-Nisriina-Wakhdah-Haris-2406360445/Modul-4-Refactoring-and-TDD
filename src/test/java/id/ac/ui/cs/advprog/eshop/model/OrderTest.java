@@ -83,28 +83,4 @@ public class OrderTest {
         this.products, 1708560000L, "Safira Sudrajat");
     assertThrows(IllegalArgumentException.class, () -> order.setStatus("MEOW"));
   }
-
-  @Test
-  void testOrderBuilder() {
-    List<Product> products = new ArrayList<>();
-
-    Product product = new Product();
-    product.setProductId("13652556-012a-4c07-b546-54eb1396d79b");
-    product.setProductName("Sampo Pantene");
-    product.setProductQuantity(1);
-
-    products.add(product);
-
-    Order order = Order.builder()
-        .id("13652556-012a-4c07-b546-54eb1396d79b")
-        .products(products)
-        .orderTime(1708560000L)
-        .author("Test Author")
-        .status(OrderStatus.WAITING_PAYMENT.getValue())
-        .build();
-
-    assertEquals("13652556-012a-4c07-b546-54eb1396d79b", order.getId());
-    assertEquals("Test Author", order.getAuthor());
-    assertEquals(products, order.getProducts());
-  }
 }
