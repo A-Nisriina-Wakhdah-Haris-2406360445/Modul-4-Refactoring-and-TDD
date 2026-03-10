@@ -1,10 +1,9 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import lombok.Getter;
-import lombok.Setter;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,6 +21,14 @@ public class Payment {
     this.order = order;
     this.method = method;
     this.paymentData = paymentData;
+  }
+
+  public void setMethod(String method) {
+    if(PaymentMethod.contains(method)) {
+      this.method = method;
+    } else {
+      throw new IllegalArgumentException();
+    }
   }
 
   public void setStatus(String status) {

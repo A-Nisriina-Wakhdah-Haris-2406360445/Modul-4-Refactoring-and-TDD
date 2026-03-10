@@ -95,7 +95,7 @@ public class PaymentTest {
   @Test
   void testSetOrderInvalidStatus() {
     Map<String, String> paymentData = new HashMap<>();
-    paymentData.put("voucheCode", "ESHOP1234ABC5678");
+    paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
     assertThrows(IllegalArgumentException.class, () ->{
       Payment payment = new Payment(orders.get(1), "VOUCHER_CODE",paymentData);
@@ -106,7 +106,7 @@ public class PaymentTest {
   @Test
   void testSetStatusToSuccess() {
     Map<String, String> paymentData = new HashMap<>();
-    paymentData.put("voucheCode", "ESHOP1234ABC5678");
+    paymentData.put("voucherCode", "ESHOP1234ABC5678");
     Payment payment = new Payment(orders.get(1), "VOUCHER_CODE",paymentData);
     payment.setStatus(PaymentStatus.SUCCESS.getValue());
     assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
