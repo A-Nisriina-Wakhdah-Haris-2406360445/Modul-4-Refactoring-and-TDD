@@ -34,10 +34,6 @@ public class Order {
     this.setStatus(status);
   }
 
-  public Order() {
-
-  }
-
   public void setStatus(String status) {
     if(OrderStatus.contains(status)) {
       this.status = status;
