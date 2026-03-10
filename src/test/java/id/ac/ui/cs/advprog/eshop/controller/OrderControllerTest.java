@@ -20,13 +20,21 @@ class OrderControllerTest {
   void testCreateOrderPage() throws Exception {
     mockMvc.perform(get("/order/create"))
         .andExpect(status().isOk())
-        .andExpect(view().name("order/create"));
+        .andExpect(view().name("create"));
   }
 
   @Test
   void testHistoryPage() throws Exception {
     mockMvc.perform(get("/order/history"))
         .andExpect(status().isOk())
-        .andExpect(view().name("order/history"));
+        .andExpect(view().name("history"));
+  }
+
+  @Test
+  void testHistoryPost() throws Exception {
+    mockMvc.perform(post("/order/history")
+            .param("name", "Budi"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("history-result"));
   }
 }
