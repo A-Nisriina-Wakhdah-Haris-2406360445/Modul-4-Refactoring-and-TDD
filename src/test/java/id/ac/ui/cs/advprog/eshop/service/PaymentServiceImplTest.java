@@ -66,30 +66,16 @@ public class PaymentServiceImplTest {
 
   @Test
   void testAddPaymentCODSuccess() {
-    Order order = orders.get(0);
+    Order order = orders.get(1);
     Map<String, String> paymentData = new HashMap<>();
     paymentData.put("address", "Bekasi");
     paymentData.put("deliveryFee", "6000");
 
-    Payment payment = paymentService.addPayment(order, PaymentMethod.VOUCHER_CODE.getValue(),
+    Payment payment = paymentService.addPayment(order, PaymentMethod.COD.getValue(),
         paymentData);
 
     assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     verify(paymentRepository, times(1)).save(payment);
-  }
-
-  @Test
-  void testAddPaymentBankTFSuccess() {
-    Order order = orders.get(0);
-    Map<String, String> paymentData = new HashMap<>();
-    paymentData.put("bankName", "BCA");
-    paymentData.put("referenceCode", "TRX123");
-
-    Payment payment = paymentService.addPayment(order, PaymentMethod.BANK_TRANSFER.getValue(),
-        paymentData);
-
-    assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
-    verify(paymentRepository).save(payment);
   }
 
   @Test
@@ -118,7 +104,7 @@ public class PaymentServiceImplTest {
   @Test
   void testSetStatusSuccess() {
     Order order = orders.get(1);
-    Payment payment = new Payment(order, PaymentMethod.BANK_TRANSFER.getValue(),
+    Payment payment = new Payment(order, PaymentMethod.COD.getValue(),
         new HashMap<>());
 
     paymentService.setStatus(payment, "SUCCESS");
@@ -130,12 +116,12 @@ public class PaymentServiceImplTest {
   @Test
   void testSetStatusRejected() {
     Order order = orders.get(1);
-    Payment payment = new Payment(order, PaymentMethod.BANK_TRANSFER.getValue(),
+    Payment payment = new Payment(order, PaymentMethod.COD.getValue(),
         new HashMap<>());
     paymentService.setStatus(payment, "REJECTED");
 
     assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
-    assertEquals(OrderStatus.FAILED.getValue(), payment.getStatus());
+    assertEquals(OrderStatus.FAILED.getValue(), order.getStatus());
   }
 
   @Test
@@ -152,8 +138,8 @@ public class PaymentServiceImplTest {
     Map<String, Payment> payments = new HashMap<>();
     when(paymentRepository.findAll()).thenReturn(payments);
 
-    Payment result = paymentService.getAllPayments();
+    List<Payment> result = paymentService.getAllPayments();
 
-    assertEquals(payments, result);
+    assertTrue(result.isEmpty());
   }
 }

@@ -5,8 +5,7 @@ import lombok.Getter;
 @Getter
 public enum PaymentMethod {
   VOUCHER_CODE("VOUCHER_CODE"),
-  COD("CASH ON DELIVERY"),
-  BANK_TRANSFER("BANK_TRANSFER");
+  COD("CASH ON DELIVERY");
 
   private final String value;
 

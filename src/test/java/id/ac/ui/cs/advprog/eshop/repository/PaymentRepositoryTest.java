@@ -66,7 +66,7 @@ public class PaymentRepositoryTest {
   void testFindAll() {
 
     Payment payment1 = new Payment(order, PaymentMethod.VOUCHER_CODE.getValue(), new HashMap<>());
-    Payment payment2 = new Payment(order, PaymentMethod.BANK_TRANSFER.getValue(), new HashMap<>());
+    Payment payment2 = new Payment(order, PaymentMethod.COD.getValue(), new HashMap<>());
 
     paymentRepository.save(payment1);
     paymentRepository.save(payment2);

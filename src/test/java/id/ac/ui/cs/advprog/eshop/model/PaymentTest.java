@@ -99,7 +99,8 @@ public class PaymentTest {
     paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
     assertThrows(IllegalArgumentException.class, () ->{
-      Payment payment = new Payment(orders.get(1), PaymentMethod.VOUCHER_CODE.getValue(), paymentData);
+      Payment payment = new Payment(orders.get(1), PaymentMethod.COD.getValue(),
+          paymentData);
       payment.setMethod("BUZZ");
     });
   }
