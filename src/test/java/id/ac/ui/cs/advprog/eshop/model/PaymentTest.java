@@ -4,7 +4,9 @@ import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
 import id.ac.ui.cs.advprog.eshop.repository.OrderRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +15,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 public class PaymentTest {
 
   private List<Product> products;
@@ -62,7 +65,7 @@ public class PaymentTest {
     assertNotNull(payment.getId());
     assertEquals("VOUCHER_CODE", payment.getMethod());
     assertEquals(paymentData, payment.getPaymentData());
-    assertEquals(order, payment.getOrder());
+    assertEquals(result, payment.getOrder());
   }
 
   @Test
