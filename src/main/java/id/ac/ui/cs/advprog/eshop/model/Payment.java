@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.UUID;
 
 @Getter
-@Setter
 public class Payment {
 
   private String id;
@@ -26,11 +25,10 @@ public class Payment {
   }
 
   public void setStatus(String status) {
-    String[] statusList = {"SUCCESS", "REJECTED"};
-    if(Arrays.stream(statusList).noneMatch(item -> (item.equals(status)))) {
-      throw new IllegalArgumentException();
-    } else {
+    if (PaymentStatus.contains(status)) {
       this.status = status;
+    } else {
+      throw new IllegalArgumentException();
     }
   }
 }
