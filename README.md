@@ -182,3 +182,24 @@ kode pengujian sesuai dengan behavior yang akan diuuji, dengan begitu kode menja
         - Perubahan pada implementasi concrete class memengaruhi subclass<br>
         - Contoh: Pada CarControler menggunakan implementasi concrete class CarServiceImpl dan inheritance antara CarController dengan ProductController
 </details>
+
+<details>
+<Summary><b>Refleksi 5 (Modul 4)</b></Summary>
+
+1. Setelah menerapkan TDD dalam proses pengembangan aplikasi ini, saya merasa bahwa penggunaan TDD cukup membantu dalam meningkatkan keandalan kode yang dihasilkan.
+Hal ini dikarenakan, TDD membantu saya untuk memahami dan mendefinisikan perilaku sistem yang diharapkan sebelum mengimplementasikan logika yang sebenarnya, karena saya harus
+memikirkan unit testnya terlebih dahulu sebelum membuat logika aslinya agar sebuah fitur dapat bekerja sesuai dengan fungsinya, dan hal ini dapat membantu mengurangi kebingungan
+dalam proses implementasi. Selain itu, penggunaan TDD juga meningkatkan kecepatan dalam refactoring code karena dengan adanya test yang sudah dibuat sebelumnya, saya dapat dengan mudah dan cepat
+mengetahui apakah perubahan yang dilakukan menyebabkan error pada suatu fungsi atau tidak, dan jika terdapat error, saya dapat dengan mudah mencari dan memperbaikinya. Meskipun demikian, terdapat beberapa kendala ketika saya mengimplementasikan TDD pada proyek ini.
+Salah satunya adalah saya menulis test setelah implementasi selesai, sehingga tidak sepenuhnya mengikuti siklus TDD yang ideal, yaitu Red – Green – Refactor karena saya kelupaan sehingga membuat implementasinya terlebih dahulu (seperti yang saya lakukan selama ini).
+Secara kesuluruhan, penerapan TDD, memberikan manfaat dalam meningkatkan kualitas dan struktur kode yang saya kerjakan, meskipun penerapan TDD dalam proyek ini belum sepenuhnya optimal.<br><br>
+2. Berdasarkan unit test yang sudah saya buat, menurut saya unit test tersebut sudah mengikuti prinsip F.I.R.S.T hal ini dikarenakan:
+- Aspek Fast: Sebagian besar unit test yang saya buat dapat dijalankan dengan cepat karena hanya menguji metode tertentu tanpa melibatkan proses yang kompleks seperti koneksi database atau jaringan.
+Selain itu, test dapat dijalankan secara berulang tanpa memerlukan waktu yang lama.<br>
+- Aspek Independent: Unit test yang dibuat tidak bergantung pada hasil test lainnya. Setiap test membuat data atau objeknya sendiri sehingga tidak dipengaruhi oleh urutan eksekusi test yang lain
+- Aspek Repeatable: Unit test yang dibuat dapat dijalankan berulang kali dengan hasil yang sama selama kode yang diuji tidak berubah. Hal ini dikarenakan, data yang digunakan dalam test bersifat statis dan tidak bergantung pada kondisi lingkungan tertentu.
+- Aspek Self-Validating: Unit test yang dibuat sudah menggunakan assertion seperti assertEquals, assertNotNull, dan assertThrows untuk secara otomatis menentukan apakah test berhasil atau gagal. Dengan demikian, hasil test dapat langsung diketahui tanpa perlu 
+pemeriksaan manual. Hal ini membantu mempercepat proses debugging ketika terjadi kesalahan.
+- Aspek Timely: : Sebagian besar unit test yang saya buat telah ditulis sebelum implementasi logika program dilakukan yang menunjukkan bahwa proses sebagian besar testing sudah mengikuti pendekatan Test-Driven Development (TDD). 
+Namun, terdapat beberapa kasus di mana unit test ditulis setelah implementasi selesai. Hal ini terjadi karena faktor human error, seperti lupa menuliskan test terlebih dahulu sebelum mengimplementasikan kode.
+</details>
