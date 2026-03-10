@@ -1,12 +1,10 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
 import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
-import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
 
-@Builder
 @Getter
 public class Order {
   String id;
@@ -32,10 +30,6 @@ public class Order {
   public Order(String id, List<Product> products, Long orderTime, String author, String status) {
     this(id, products, orderTime, author);
     this.setStatus(status);
-  }
-
-  public Order() {
-
   }
 
   public void setStatus(String status) {
