@@ -1,9 +1,11 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+@Service
 public class CODPaymentStrategy implements PaymentStrategy {
 
   @Override
