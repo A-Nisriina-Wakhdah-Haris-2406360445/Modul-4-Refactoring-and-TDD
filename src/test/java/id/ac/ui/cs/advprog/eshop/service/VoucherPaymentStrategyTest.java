@@ -11,13 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class VoucherPaymentStrategyTest {
 
   @Test
-  void proccessPaymentSucces() {
+  void processPayment_success() {
     VoucherPaymentStrategy strategy = new VoucherPaymentStrategy();
+
     Map<String, String> paymentData = new HashMap<>();
-    paymentData.put("voucherCode",  "ESHOP1234ABCD5678");
+    paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
     String result = strategy.processPayment(paymentData);
-    assertEquals(PaymentStatus.SUCCESS.getValue(), result);
+    assertEquals("SUCCESS", result);
   }
 
   @Test
