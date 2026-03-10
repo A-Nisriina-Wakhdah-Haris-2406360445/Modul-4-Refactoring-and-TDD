@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.model.Product;
@@ -41,7 +42,7 @@ public class PaymentRepositoryTest {
     Map<String, String> data = new HashMap<>();
     data.put("voucherCode", "ESHOP1234ABC5678");
 
-    Payment payment = new Payment(order, "VOUCHER_CODE", data);
+    Payment payment = new Payment(order, PaymentMethod.VOUCHER_CODE.getValue(), data);
 
     Payment saved = paymentRepository.save(payment);
 
@@ -52,7 +53,7 @@ public class PaymentRepositoryTest {
   @Test
   void testFindById() {
 
-    Payment payment = new Payment(order, "VOUCHER_CODE", new HashMap<>());
+    Payment payment = new Payment(order, PaymentMethod.VOUCHER_CODE.getValue(), new HashMap<>());
     paymentRepository.save(payment);
 
     Payment result = paymentRepository.findById(payment.getId());
@@ -64,8 +65,8 @@ public class PaymentRepositoryTest {
   @Test
   void testFindAll() {
 
-    Payment payment1 = new Payment(order, "VOUCHER_CODE", new HashMap<>());
-    Payment payment2 = new Payment(order, "BANK_TRANSFER", new HashMap<>());
+    Payment payment1 = new Payment(order, PaymentMethod.VOUCHER_CODE.getValue(), new HashMap<>());
+    Payment payment2 = new Payment(order, PaymentMethod.BANK_TRANSFER.getValue(), new HashMap<>());
 
     paymentRepository.save(payment1);
     paymentRepository.save(payment2);
@@ -90,7 +91,4 @@ public class PaymentRepositoryTest {
     Map<String, Payment> allPayments = paymentRepository.findAll();
     assertTrue(allPayments.isEmpty());
   }
-
-
-
 }
