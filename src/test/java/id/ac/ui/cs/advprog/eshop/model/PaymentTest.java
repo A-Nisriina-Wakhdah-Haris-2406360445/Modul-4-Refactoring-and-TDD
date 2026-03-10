@@ -1,6 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
 import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.repository.OrderRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -107,8 +108,8 @@ public class PaymentTest {
     Map<String, String> paymentData = new HashMap<>();
     paymentData.put("voucheCode", "ESHOP1234ABC5678");
     Payment payment = new Payment(orders.get(1), "VOUCHER_CODE",paymentData);
-    payment.setStatus("SUCCESS");
-    assertEquals("SUCCESS", payment.getStatus());
+    payment.setStatus(PaymentStatus.SUCCESS.getValue());
+    assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
   }
 
 }
