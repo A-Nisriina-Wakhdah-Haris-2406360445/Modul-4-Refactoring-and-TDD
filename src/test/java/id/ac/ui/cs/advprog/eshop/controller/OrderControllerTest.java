@@ -20,7 +20,7 @@ class OrderControllerTest {
   void testCreateOrderPage() throws Exception {
     mockMvc.perform(get("/order/create"))
         .andExpect(status().isOk())
-        .andExpect(view().name("create"));
+        .andExpect(view().name("CreateOrder"));
   }
 
   @Test

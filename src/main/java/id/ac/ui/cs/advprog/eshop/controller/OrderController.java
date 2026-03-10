@@ -27,7 +27,7 @@ public class OrderController {
 
   @GetMapping("/create")
   public String createOrderPage() {
-    return "create";
+    return "CreateOrder";
   }
 
   @GetMapping("/history")
