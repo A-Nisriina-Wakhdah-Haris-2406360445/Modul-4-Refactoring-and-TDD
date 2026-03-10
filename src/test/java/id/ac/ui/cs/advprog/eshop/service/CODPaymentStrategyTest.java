@@ -54,4 +54,16 @@ public class CODPaymentStrategyTest {
     String result = strategy.processPayment(paymentData);
     assertEquals(PaymentStatus.REJECTED.getValue(), result);
   }
+
+  @Test
+  void testProcessPaymentEmptyDeliveryFee() {
+    CODPaymentStrategy strategy = new CODPaymentStrategy();
+    Map<String, String> paymentData = new HashMap<>();
+    paymentData.put("address", "Depok");
+    paymentData.put("deliveryFee", "");
+
+    String result = strategy.processPayment(paymentData);
+
+    assertEquals(PaymentStatus.REJECTED.getValue(), result);
+  }
 }
