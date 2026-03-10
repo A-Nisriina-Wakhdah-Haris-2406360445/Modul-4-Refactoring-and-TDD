@@ -3,8 +3,8 @@ package id.ac.ui.cs.advprog.eshop.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.ac.ui.cs.advprog.eshop.service.CarServiceCRUD;
-import id.ac.ui.cs.advprog.eshop.service.CarServiceRead;
+import id.ac.ui.cs.advprog.eshop.service.car.CarServiceCRUD;
+import id.ac.ui.cs.advprog.eshop.service.car.CarServiceRead;
 import org.junit.jupiter.api.Test;
 import id.ac.ui.cs.advprog.eshop.model.Car;
 import org.springframework.beans.factory.annotation.Autowired;

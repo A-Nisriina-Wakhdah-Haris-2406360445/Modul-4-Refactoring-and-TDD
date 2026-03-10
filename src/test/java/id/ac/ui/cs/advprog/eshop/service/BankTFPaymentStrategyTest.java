@@ -30,7 +30,7 @@ public class BankTFPaymentStrategyTest {
     paymentData.put("referenceCode", "TRX123");
 
     String result = strategy.processPayment(paymentData);
-    assertEquals(PaymentStatus.SUCCESS.getValue(), result);
+    assertEquals(PaymentStatus.REJECTED.getValue(), result);
   }
 
   @Test

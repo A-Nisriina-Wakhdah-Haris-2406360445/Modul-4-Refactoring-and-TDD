@@ -1,8 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
 import id.ac.ui.cs.advprog.eshop.model.Car;
-import id.ac.ui.cs.advprog.eshop.service.CarServiceCRUD;
-import id.ac.ui.cs.advprog.eshop.service.CarServiceRead;
+import id.ac.ui.cs.advprog.eshop.service.car.CarServiceCRUD;
+import id.ac.ui.cs.advprog.eshop.service.car.CarServiceRead;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

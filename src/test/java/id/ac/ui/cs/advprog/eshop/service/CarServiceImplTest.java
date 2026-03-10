@@ -3,6 +3,7 @@ package id.ac.ui.cs.advprog.eshop.service;
 import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.repository.CarCRUD;
 import id.ac.ui.cs.advprog.eshop.repository.CarReadOnly;
+import id.ac.ui.cs.advprog.eshop.service.car.CarServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
