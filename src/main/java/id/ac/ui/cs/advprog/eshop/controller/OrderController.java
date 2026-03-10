@@ -32,7 +32,7 @@ public class OrderController {
 
   @GetMapping("/history")
   public String historyForm() {
-    return "history";
+    return "OrderHistory";
   }
 
   @PostMapping("/history")
@@ -40,7 +40,7 @@ public class OrderController {
 
     List<Order> orders = orderService.findAllByAuthor(name);
     model.addAttribute("orders", orders);
-    return "history-result";
+    return "HistoryResult";
   }
 
   @GetMapping("/pay/{orderId}")
@@ -48,7 +48,7 @@ public class OrderController {
 
     Order order = orderService.findById(orderId);
     model.addAttribute("order", order);
-    return "pay";
+    return "PayOrder";
   }
 
   @PostMapping("/pay/{orderId}")
@@ -62,6 +62,6 @@ public class OrderController {
     Payment payment = paymentService.addPayment(order, method, paymentData);
 
     model.addAttribute("paymentId", payment.getId());
-    return "payment-result";
+    return "PaymentResult";
   }
 }
